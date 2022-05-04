@@ -29,11 +29,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::controller(IndexController::class)->group(function () {
     Route::get('/', 'Homepage')->name('Homepage');
-    Route::get('/danh-muc/{slug?}', 'menu')->name('category');
-    Route::get('/the-loai/{slug?}', 'menu')->name('genre');
-    Route::get('/quoc-gia/{slug?}', 'menu')->where('name', '[A-Za-z]+')->name('country');
-    Route::get('/phim/{slug?}', 'movie')->name('movie');
-    Route::get('/xem-phim', 'watch')->name('watch');
+    Route::get('/danh-muc/{slug}', 'show_list_movie')->where('name', '[A-Za-z]+')->name('category');
+    Route::get('/the-loai/{slug}', 'show_list_movie')->where('name', '[A-Za-z]+')->name('genre');
+    Route::get('/quoc-gia/{slug}', 'show_list_movie')->where('name', '[A-Za-z]+')->name('country');
+    Route::get('/phim/{slug}', 'movie')->where('name', '[A-Za-z]+')->name('movie');
+    Route::get('/xem-phim/{slug}', 'watch')->name('watch');
     Route::get('/episode', 'episode')->name('episode');
 });
 

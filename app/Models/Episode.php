@@ -9,4 +9,9 @@ class Episode extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function scopeStatus($query)
+    {
+        return $query->where('status', true);
+    }
 }

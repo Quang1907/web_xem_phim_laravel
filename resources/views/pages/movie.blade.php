@@ -45,7 +45,7 @@
                                     alt="GÓA PHỤ ĐEN">
                                 <div class="bwa-content">
                                     <div class="loader"></div>
-                                    <a href="{{ route('watch') }}" class="bwac-btn">
+                                    <a href="{{ route('watch', $phim->slug) }}" class="bwac-btn">
                                         <i class="fa fa-play"></i>
                                     </a>
                                 </div>

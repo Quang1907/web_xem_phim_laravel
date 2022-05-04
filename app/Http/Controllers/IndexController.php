@@ -34,16 +34,19 @@ class IndexController extends Controller
         return view('pages.home', compact('categories', 'countries', 'genres', 'movies', 'episode', 'phim_hot'));
     }
 
-    public function menu($slug, Request $request)
+    public function show_list_movie($slug = null, Request $request)
     {
-        $class = 'App\Models\\' . ucfirst($request->route()->getName());
+        $tableName = 'App\Models\\' . ucfirst($request->route()->getName());
         $categories = $this->categories;
         $countries = $this->countries;
         $genres = $this->genres;
         $movies = $this->movies;
         $episode = $this->episode;
-        $find_slug = $class::where('status', true)->where('slug', $slug)->first();
-        return view('pages.display', compact('categories', 'countries', 'genres', 'movies', 'episode', 'find_slug'));
+        $find_slug = $tableName::where('status', true)->where('slug', $slug)->first();
+        if ($find_slug) {
+            return view('pages.display', compact('categories', 'countries', 'genres', 'movies', 'episode',  'find_slug'));
+        }
+        return abort(404);
     }
 
     public function movie($slug)
@@ -54,12 +57,24 @@ class IndexController extends Controller
         $movies = $this->movies;
         $episode = $this->episode;
         $phim =  Movie::where('slug', $slug)->status()->first();
-        return view('pages.movie', compact('categories', 'countries', 'genres', 'movies', 'episode', 'phim'));
+        if ($phim) {
+            return view('pages.movie', compact('categories', 'countries', 'genres', 'movies', 'episode', 'phim'));
+        }
+        return abort(404);
     }
 
-    public function watch()
+    public function watch($slug)
     {
-        return view('pages.watch');
+        $categories = $this->categories;
+        $countries = $this->countries;
+        $genres = $this->genres;
+        $movies = $this->movies;
+        $episode = $this->episode;
+        $phim =  Movie::where('slug', $slug)->status()->first();
+        if ($phim) {
+            return view('pages.watch', compact('categories', 'countries', 'genres', 'movies', 'episode', 'phim'));
+        }
+        return abort(404);
     }
 
     public function episode()
