@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::group(['middleware' => 'AdminRight', 'prefix' => 'admin'], function () {
     Route::put('resorting', [CategoryController::class, 'resorting'])->name('resorting');
     Route::resource('category', CategoryController::class);

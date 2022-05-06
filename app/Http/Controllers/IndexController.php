@@ -31,20 +31,22 @@ class IndexController extends Controller
         $movies = $this->movies;
         $episode = $this->episode;
         $phim_hot = Movie::orderBy('id', 'desc')->status()->where('phim_hot', true)->get();
-        return view('pages.home', compact('categories', 'countries', 'genres', 'movies', 'episode', 'phim_hot'));
+        return view('pages.home', compact('categories', 'countries', 'genres', 'movies', 'phim_hot'));
     }
 
     public function show_list_movie($slug = null, Request $request)
     {
-        $tableName = 'App\Models\\' . ucfirst($request->route()->getName());
+        $table = $request->route()->getName();
+        $modelTableName =  'App\Models\\' . ucfirst($table);
         $categories = $this->categories;
         $countries = $this->countries;
         $genres = $this->genres;
         $movies = $this->movies;
         $episode = $this->episode;
-        $find_slug = $tableName::where('status', true)->where('slug', $slug)->first();
+        $find_slug = $modelTableName::where('status', true)->where('slug', $slug)->first();
+        $list_movie = Movie::where($table . '_id', $find_slug->id)->paginate(12);
         if ($find_slug) {
-            return view('pages.display', compact('categories', 'countries', 'genres', 'movies', 'episode',  'find_slug'));
+            return view('pages.display', compact('categories', 'countries', 'genres', 'movies',  'list_movie', 'find_slug'));
         }
         return abort(404);
     }
@@ -58,7 +60,8 @@ class IndexController extends Controller
         $episode = $this->episode;
         $phim =  Movie::where('slug', $slug)->status()->first();
         if ($phim) {
-            return view('pages.movie', compact('categories', 'countries', 'genres', 'movies', 'episode', 'phim'));
+            $related = Movie::where('genre_id', $phim->genre->id)->status()->get();
+            return view('pages.movie', compact('categories', 'countries', 'genres', 'movies', 'phim', 'related'));
         }
         return abort(404);
     }
@@ -72,7 +75,7 @@ class IndexController extends Controller
         $episode = $this->episode;
         $phim =  Movie::where('slug', $slug)->status()->first();
         if ($phim) {
-            return view('pages.watch', compact('categories', 'countries', 'genres', 'movies', 'episode', 'phim'));
+            return view('pages.watch', compact('categories', 'countries', 'genres', 'movies', 'phim'));
         }
         return abort(404);
     }

@@ -37,6 +37,8 @@
     <link rel='stylesheet' id='wp-block-library-css' href="{{ asset('css/style.min.css?ver=5.7.2') }}" media=' all' />
     <script type='text/javascript' src="{{ asset('js/jquery.min.js?ver=5.7.2') }}" id=' halim-jquery-js'></script>
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    @yield('js')
+
 </head>
 
 <body class="home blog halimthemes halimmovies" data-masonry="">

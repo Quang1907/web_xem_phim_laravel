@@ -18,8 +18,9 @@
                             <a class="halim-thumb" href="{{ route('movie', $hot->slug) }}" title="Đại Thánh Vô Song">
                                 <figure><img class="lazy img-responsive" src="{{ asset('uploads/movie/' . $hot->image) }}"
                                         alt="{{ $hot->title }}" title="{{ $hot->title }}"></figure>
-                                <span class="status">HD</span><span class="episode"><i class="fa fa-play"
-                                        aria-hidden="true"></i>Vietsub</span>
+                                <span class="status">{{ $hot->resolution }}</span><span class="episode"><i
+                                        class="fa fa-play"
+                                        aria-hidden="true"></i>{{ $hot->subtitle ? ' Phu de' : ' Thuyet minh' }}</span>
                                 <div class="icon_overlay"></div>
                                 <div class="halim-post-title-box">
                                     <div class="halim-post-title ">
@@ -54,8 +55,9 @@
                                                 src="{{ asset('uploads/movie/' . $movie->image) }}"
                                                 alt="{{ $movie->title }}" title="{{ $movie->title }}">
                                         </figure>
-                                        <span class="status">TẬP 15</span><span class="episode"><i
-                                                class="fa fa-play" aria-hidden="true"></i>Vietsub</span>
+                                        <span class="status">{{ $hot->resolution }}</span><span
+                                            class="episode"><i class="fa fa-play"
+                                                aria-hidden="true"></i>{{ $hot->subtitle ? ' Phu de' : ' Thuyet minh' }}</span>
                                         <div class="icon_overlay"></div>
                                         <div class="halim-post-title-box">
                                             <div class="halim-post-title ">

@@ -113,13 +113,15 @@ class MovieController extends Controller
             'slug' => $request->slug,
             'description' => $request->description,
             'phim_hot' => $request->phim_hot,
+            'resolution' => $request->resolution,
+            'subtitle' => $request->subtitle,
             'status' => $request->status,
             'category_id' => $request->category_id,
             'genre_id' => $request->genre_id,
             'country_id' => $request->country_id,
         ]);
         if ($get_image) {
-            if (!empty($movie->image)) {
+            if (!empty($movie->image) && file_exists('uploads/movie/' . $movie->image)) {
                 unlink('uploads/movie/' . $movie->image);
             }
             $path = 'uploads/movie';
@@ -143,7 +145,7 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         if ($movie) {
-            if (!empty($movie->image)) {
+            if (!empty($movie->image) && file_exists('uploads/movie/' . $movie->image)) {
                 unlink('uploads/movie/' . $movie->image);
             }
             $movie->delete();

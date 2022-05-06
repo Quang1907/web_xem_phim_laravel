@@ -57,7 +57,8 @@
                                 <h2 class="movie-title title-2" style="font-size: 12px;">{{ $phim->name_eng }}</h2>
                                 <ul class="list-info-group">
                                     <li class="list-info-group-item"><span>Trạng Thái</span> : <span
-                                            class="quality">HD</span><span class="episode">Vietsub</span></li>
+                                            class="quality">{{ $phim->resolution }}</span><span
+                                            class="episode">Vietsub</span></li>
                                     <li class="list-info-group-item"><span>Điểm IMDb</span> : <span
                                             class="imdb">7.2</span></li>
                                     <li class="list-info-group-item"><span>Thời lượng</span> : 133 Phút</li>
@@ -126,24 +127,29 @@
                         <h3 class="section-title"><span>CÓ THỂ BẠN MUỐN XEM</span></h3>
                     </div>
                     <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
-                        <article class="thumb grid-item post-38498">
-                            <div class="halim-item">
-                                <a class="halim-thumb" href="chitiet.php" title="Đại Thánh Vô Song">
-                                    <figure><img class="lazy img-responsive"
-                                            src="https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&refresh=604800&url=https://1.bp.blogspot.com/-w860_-tiHFI/YO7DW5hwmNI/AAAAAAAAJqg/yFXRsVIh70oslGUKU4Fg3NxipcmCiPt3ACLcBGAsYHQ/s320/unnamed.jpg"
-                                            alt="Đại Thánh Vô Song" title="Đại Thánh Vô Song"></figure>
-                                    <span class="status">HD</span><span class="episode"><i
-                                            class="fa fa-play" aria-hidden="true"></i>Vietsub</span>
-                                    <div class="icon_overlay"></div>
-                                    <div class="halim-post-title-box">
-                                        <div class="halim-post-title ">
-                                            <p class="entry-title">Đại Thánh Vô Song</p>
-                                            <p class="original_title">Monkey King: The One And Only</p>
+                        @forelse ($related as $rela)
+                            <article class="thumb grid-item post-38498">
+                                <div class="halim-item">
+                                    <a class="halim-thumb" href="{{ route('movie', $rela->slug) }}"
+                                        title="{{ $rela->title }}">
+                                        <figure><img class="lazy img-responsive"
+                                                src="{{ asset('/uploads/movie/' . $rela->image) }}"
+                                                alt="{{ $rela->title }}" title="{{ $rela->title }}"></figure>
+                                        <span class="status">{{ $rela->resolution }}</span><span
+                                            class="episode"><i class="fa fa-play"
+                                                aria-hidden="true"></i>Vietsub</span>
+                                        <div class="icon_overlay"></div>
+                                        <div class="halim-post-title-box">
+                                            <div class="halim-post-title ">
+                                                <p class="entry-title">{{ $rela->title }}</p>
+                                                <p class="original_title">{{ $rela->name_eng }}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </article>
+                                    </a>
+                                </div>
+                            </article>
+                        @empty
+                        @endforelse
                     </div>
                     <script>
                         jQuery(document).ready(function($) {

@@ -51,21 +51,27 @@
                             @endif
                         </div>
 
+                        <div class="form-group mb-3{{ $errors->has('resolution') ? ' has-error' : '' }}">
+                            {!! Form::label('resolution', 'Dinh dang') !!}
+                            {!! Form::select('resolution', ['Full HD' => 'Full HD', 'HD' => 'HD', 'SD' => 'SD', 'HDCam' => 'HDCam', 'Cam' => 'Cam'], isset($movie->resolution) ? $movie->resolution : '', ['id' => 'resolution', 'class' => 'form-select']) !!}
+                            <small class="text-danger">{{ $errors->first('resolution') }}</small>
+                        </div>
+
                         <div class="form-group mb-3{{ $errors->has('category_id') ? ' has-error' : '' }}">
                             {!! Form::label('category_id', 'Danh muc') !!}
-                            {!! Form::select('category_id', $categories, null, ['id' => 'category_id', 'class' => 'form-select']) !!}
+                            {!! Form::select('category_id', $categories, isset($movie->category_id) ? $movie->category_id : '', ['id' => 'category_id', 'class' => 'form-select']) !!}
                             <small class="text-danger">{{ $errors->first('category_id') }}</small>
                         </div>
 
                         <div class="form-group mb-3{{ $errors->has('genre_id') ? ' has-error' : '' }}">
                             {!! Form::label('genre_id', 'The loai') !!}
-                            {!! Form::select('genre_id', $genres, null, ['id' => 'genre_id', 'class' => 'form-select']) !!}
+                            {!! Form::select('genre_id', $genres, isset($movie->genre_id) ? $movie->genre_id : '', ['id' => 'genre_id', 'class' => 'form-select']) !!}
                             <small class="text-danger">{{ $errors->first('genre_id') }}</small>
                         </div>
 
                         <div class="form-group mb-3{{ $errors->has('country_id') ? ' has-error' : '' }}">
                             {!! Form::label('country_id', 'Quoc gia') !!}
-                            {!! Form::select('country_id', $countries, null, ['id' => 'country_id', 'class' => 'form-select']) !!}
+                            {!! Form::select('country_id', $countries, isset($movie->country_id) ? $movie->country_id : '', ['id' => 'country_id', 'class' => 'form-select']) !!}
                             <small class="text-danger">{{ $errors->first('country_id') }}</small>
                         </div>
 
@@ -80,6 +86,7 @@
                             </label>
                             <small class="text-danger">{{ $errors->first('status') }}</small>
                         </div>
+
                         <div class="radio mb-3{{ $errors->has('status') ? ' has-error' : '' }}">
                             <label for="" class="form-group me-3">Status</label>
                             <label for="public_status" class="px-3">
@@ -90,6 +97,18 @@
                                 {!! Form::radio('status', '0', isset($movie->status) && $movie->status == false ? 'checked' : '', ['id' => 'private_status']) !!} Private
                             </label>
                             <small class="text-danger">{{ $errors->first('status') }}</small>
+                        </div>
+
+                        <div class="radio mb-3{{ $errors->has('subtitle') ? ' has-error' : '' }}">
+                            <label for="" class="form-group me-3">Subtitle</label>
+                            <label for="public_subtitle" class="px-3">
+                                {!! Form::radio('subtitle', '1', ((isset($movie->subtitle) && $movie->subtitle) == true ? 'checked' : '' || empty($movie)) ? 'checked' : '', ['id' => 'public_subtitle']) !!} Phụ đề
+                            </label>
+                            <small class="text-danger">{{ $errors->first('subtitle') }}</small>
+                            <label for="private_subtitle">
+                                {!! Form::radio('subtitle', '0', isset($movie->subtitle) && $movie->subtitle == false ? 'checked' : '', ['id' => 'private_subtitle']) !!} Thuyết minh
+                            </label>
+                            <small class="text-danger">{{ $errors->first('subtitle') }}</small>
                         </div>
 
                         <div class="btn-group float-end mt-3">

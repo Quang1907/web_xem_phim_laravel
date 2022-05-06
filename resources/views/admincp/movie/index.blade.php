@@ -16,7 +16,8 @@
                             <th>Danh muc</th>
                             <th>The loai</th>
                             <th>Quoc gia</th>
-                            {{-- <th>Description</th> --}}
+                            <th>Dinh dang</th>
+                            <th>Phu de</th>
                             <th>Phim hot</th>
                             <th>Status</th>
                             <th>Manage</th>
@@ -41,10 +42,13 @@
                                 <td>{{ $model->category->title }}</td>
                                 <td>{{ $model->genre->title }}</td>
                                 <td>{{ $model->country->title }}</td>
-                                {{-- <td class="description">{{ $model->description }}</td> --}}
+                                <td>{{ $model->resolution }}</td>
+                                <td>{{ $model->subtitle ? 'Phu de' : 'Thuyet minh' }}
+                                </td>
                                 <td>
                                     @if ($model->phim_hot)
-                                        <span class="badge bg-success">Public</span>
+                                        <span class="
+                                        badge bg-success">Public</span>
                                     @else
                                         <span class="badge bg-danger">Private</span>
                                     @endif
@@ -72,7 +76,6 @@
                         @endforelse
                     </tbody>
                 </table>
-                {{-- {{ $movies->appends(request()->all())->links() }} --}}
             </div>
         </div>
     </div>
@@ -86,16 +89,3 @@
         });
     </script>
 @endsection
-
-{{-- @section('css')
-    <style>
-        .description {
-            text-overflow: ellipsis;
-            overflow: hidden;
-            -webkit-line-clamp: 7;
-            -webkit-box-orient: vertical;
-            display: -webkit-box;
-        }
-
-    </style>
-@endsection --}}
